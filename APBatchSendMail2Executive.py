@@ -92,6 +92,15 @@ def send_email(subject, message, from_email, to_email=None, attachment=None):
     return
 
 
+def refreshDataLastUpdate():
+    strSQL = """
+    EXEC [dbo].[sp_proc_mail_llbw_all]
+    """
+
+    myConnDB = ConnectDB()
+    myConnDB.exec_sp(strSQL, params=())
+
+
 def getHeaderTable(p_parm: int = None):
     strSQL = """
     EXEC [dbo].[sp_proc_mail_llbw_H] @p_parm = ?
@@ -159,10 +168,8 @@ def getDatafromTable(sub_no: int = None):
 
 
 def main():
-    # params = 'Driver={ODBC Driver 17 for SQL Server};Server=192.168.2.58;Database=db_iconcrm_fusion;uid=iconuser;pwd' \
-    #          '=P@ssw0rd; '
-    # params = urllib.parse.quote_plus(params)
-    # db = create_engine('mssql+pyodbc:///?odbc_connect=%s' % params, fast_executemany=True)
+    # Refresh Data
+    refreshDataLastUpdate()
 
     # receivers = ['suchat_s@apthai.com', 'apichaya@apthai.com', 'jintana_i@apthai.com', 'polwaritpakorn@apthai.com']
     receivers = ['suchat_s@apthai.com']
