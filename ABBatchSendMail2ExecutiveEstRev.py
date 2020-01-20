@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 import pyodbc
 import pandas as pd
 from sqlalchemy import create_engine
-from config import MAIL_SENDER,  EST_MAIL_SUBJECT, EST_MAIL_TABLE_HEAD, EST_MAIL_TABLE_COL_HEAD
+from config import MAIL_SENDER,  EST_MAIL_SUBJECT, EST_MAIL_BODY, EST_MAIL_TABLE_HEAD, EST_MAIL_TABLE_COL_HEAD
 import codecs
 
 
@@ -123,11 +123,23 @@ def generateHTML():
     """.format(EST_MAIL_TABLE_HEAD, EST_MAIL_TABLE_COL_HEAD, strHTML)
 
 
+def readHTMLFile(p_parm: int = None):
+    f = None
+    if p_parm == 1:
+        f = codecs.open("templates/template_est_rev.html", 'r')
+    if p_parm == 2:
+        f = codecs.open("templates/template_est_rev_byproj.html", 'r')
+
+    return f.read()
+
+
 def main():
     # receivers = ['suchat_s@apthai.com', 'apichaya@apthai.com', 'jintana_i@apthai.com', 'polwaritpakorn@apthai.com']
     receivers = ['suchat_s@apthai.com']
     subject = EST_MAIL_SUBJECT
-    bodyMsg = generateHTML()
+    # bodyMsg = generateHTML()
+    # bodyMsg = EST_MAIL_BODY
+    bodyMsg = "{0} <br /> {1}".format(readHTMLFile(1), readHTMLFile(2))
     sender = MAIL_SENDER
 
     attachedFile = []
