@@ -171,8 +171,12 @@ def main():
     # Refresh Data
     refreshDataLastUpdate()
 
+    # receivers = ['suchat_s@apthai.com', 'apichaya@apthai.com', 'jintana_i@apthai.com', 'polwaritpakorn@apthai.com',
+    #              'tanonchai@apthai.com', 'teerapat_s@apthai.com']
+
     receivers = ['suchat_s@apthai.com', 'apichaya@apthai.com', 'jintana_i@apthai.com', 'polwaritpakorn@apthai.com',
-                 'tanonchai@apthai.com', 'teerapat_s@apthai.com']
+                 'tanonchai@apthai.com', 'teerapat_s@apthai.com', 'laddawan_v@apthai.com', 'woraphan_c@apthai.com',
+                 'raweewan_p@apthai.com', 'srisakul_p@apthai.com', 'jatuporn_p@apthai.com']
     # receivers = ['suchat_s@apthai.com']
     subject = MAIL_SUBJECT
     # bodyMsg = MAIL_BODY
