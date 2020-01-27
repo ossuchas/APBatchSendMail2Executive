@@ -309,8 +309,8 @@ def readHTMLFile(p_parm: int = None):
 
 
 def main():
-    # receivers = ['suchat_s@apthai.com', 'pimonwan@apthai.com', 'pornnapa@apthai.com']
-    receivers = ['suchat_s@apthai.com']
+    receivers = ['suchat_s@apthai.com', 'pimonwan@apthai.com', 'pornnapa@apthai.com']
+    # receivers = ['suchat_s@apthai.com']
     subject = EST_MAIL_SUBJECT
     # bodyMsg = generateHTMLbyProj()
     # bodyMsg = EST_MAIL_BODY
