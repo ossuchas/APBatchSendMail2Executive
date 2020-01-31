@@ -92,9 +92,31 @@ def send_email(subject, message, from_email, to_email=None, attachment=None):
     return
 
 
+def getHeaderTable():
+    strSQL = """
+    EXEC [dbo].[sp_proc_mail_est_reve_DH]
+    """
+
+    myConnDB = ConnectDB()
+    result_set = myConnDB.exec_spRet(strSQL, params=())
+    returnVal = []
+    for row in result_set:
+        returnVal.append(row.head_curr_quarter)
+        returnVal.append(row.head_est_d1)
+        returnVal.append(row.head_est_d2)
+        returnVal.append(row.head_est_d3)
+        returnVal.append(row.head_est_d4)
+        returnVal.append(row.head_est_d5)
+        returnVal.append(row.head_m1)
+        returnVal.append(row.head_m2)
+        returnVal.append(row.head_m3)
+
+    return returnVal
+
+
 def generateHTMLDetl():
     strSQL = """
-    SELECT seqn_no, trns_name, ac_q1, ac_q2, ac_q3, ac_q4, qtd_curr_ac, est_curr_d1, est_curr_d2, est_curr_d3,
+    SELECT seqn_no, trns_name, ac_q1, qtd_curr_ac, est_curr_d1, est_curr_d2, est_curr_d3,
     est_curr_d4, est_curr_d5, qtd_est_total, ytd_est_ac
     FROM dbo.crm_mail_est_reve
     ORDER BY seqn_no
@@ -116,9 +138,6 @@ def generateHTMLDetl():
         <td align="right">{7}&nbsp;</td>
         <td align="right">{8}&nbsp;</td>
         <td align="right">{9}&nbsp;</td>
-        <td align="right">{10}&nbsp;</td>
-        <td align="right">{11}&nbsp;</td>
-        <td align="right">{12}&nbsp;</td>
     </tr>
     """
 
@@ -134,45 +153,43 @@ def generateHTMLDetl():
         <td align="right" bgcolor="#FFFFCC"><strong>{7}&nbsp;</strong></td>
         <td align="right" bgcolor="#FFFFCC"><strong>{8}&nbsp;</strong></td>
         <td align="right" bgcolor="#FFFFCC"><strong>{9}&nbsp;</strong></td>
-        <td align="right" bgcolor="#FFFFCC"><strong>{10}&nbsp;</strong></td>
-        <td align="right" bgcolor="#FFFFCC"><strong>{11}&nbsp;</strong></td>
-        <td align="right" bgcolor="#FFFFCC"><strong>{12}&nbsp;</strong></td>
     </tr>
     """
 
     for row in result_set:
         if row.seqn_no != 3:
             strHTML = strHTML.strip() + str_tmpHTML.format(row.trns_name.strip(),
-                                                           f"{row.ac_q1:,.0f}",
-                                                           f"{row.ac_q2:,.0f}",
-                                                           f"{row.ac_q3:,.0f}",
-                                                           f"{row.ac_q4:,.0f}",
-                                                           f"{row.qtd_curr_ac:,.0f}",
-                                                           f"{row.est_curr_d1:,.0f}",
-                                                           f"{row.est_curr_d2:,.0f}",
-                                                           f"{row.est_curr_d3:,.0f}",
-                                                           f"{row.est_curr_d4:,.0f}",
-                                                           f"{row.est_curr_d5:,.0f}",
-                                                           f"{row.qtd_est_total:,.0f}",
-                                                           f"{row.ytd_est_ac:,.0f}"
+                                                           f"{row.ac_q1:,.02f}",
+                                                           f"{row.qtd_curr_ac:,.02f}",
+                                                           f"{row.est_curr_d1:,.02f}",
+                                                           f"{row.est_curr_d2:,.02f}",
+                                                           f"{row.est_curr_d3:,.02f}",
+                                                           f"{row.est_curr_d4:,.02f}",
+                                                           f"{row.est_curr_d5:,.02f}",
+                                                           f"{row.qtd_est_total:,.02f}",
+                                                           f"{row.ytd_est_ac:,.02f}"
                                                            )
         else:
             strHTML = strHTML.strip() + str_total_tmpHTML.format(row.trns_name.strip(),
-                                                                 f"{row.ac_q1:,.0f}",
-                                                                 f"{row.ac_q2:,.0f}",
-                                                                 f"{row.ac_q3:,.0f}",
-                                                                 f"{row.ac_q4:,.0f}",
-                                                                 f"{row.qtd_curr_ac:,.0f}",
-                                                                 f"{row.est_curr_d1:,.0f}",
-                                                                 f"{row.est_curr_d2:,.0f}",
-                                                                 f"{row.est_curr_d3:,.0f}",
-                                                                 f"{row.est_curr_d4:,.0f}",
-                                                                 f"{row.est_curr_d5:,.0f}",
-                                                                 f"{row.qtd_est_total:,.0f}",
-                                                                 f"{row.ytd_est_ac:,.0f}"
+                                                                 f"{row.ac_q1:,.02f}",
+                                                                 f"{row.qtd_curr_ac:,.02f}",
+                                                                 f"{row.est_curr_d1:,.02f}",
+                                                                 f"{row.est_curr_d2:,.02f}",
+                                                                 f"{row.est_curr_d3:,.02f}",
+                                                                 f"{row.est_curr_d4:,.02f}",
+                                                                 f"{row.est_curr_d5:,.02f}",
+                                                                 f"{row.qtd_est_total:,.02f}",
+                                                                 f"{row.ytd_est_ac:,.02f}"
                                                                  )
 
-    return readHTMLFile(1).format(strHTML)
+    return readHTMLFile(1).format(getHeaderTable()[0],
+                                  getHeaderTable()[1],
+                                  getHeaderTable()[2],
+                                  getHeaderTable()[3],
+                                  getHeaderTable()[4],
+                                  getHeaderTable()[5],
+                                  getHeaderTable()[0],
+                                  strHTML)
 
 
 def generateHTMLTotal():
@@ -211,30 +228,33 @@ def generateHTMLTotal():
     for row in result_set:
         if row.seqn_no != 7:
             strHTML = strHTML.strip() + str_tmpHTML.format(row.trns_name.strip(),
-                                                           f"{row.ll_curr_q_tg:,.0f}",
-                                                           f"{row.qtd_ac:,.0f}",
-                                                           f"{row.est_curr_totl:,.0f}",
-                                                           f"{row.qtd_est_totl:,.0f}",
-                                                           f"{row.qtd_est_diff_ll_curr_q_tg:,.0f}"
+                                                           f"{row.ll_curr_q_tg:,.02f}",
+                                                           f"{row.qtd_ac:,.02f}",
+                                                           f"{row.est_curr_totl:,.02f}",
+                                                           f"{row.qtd_est_totl:,.02f}",
+                                                           f"{row.qtd_est_diff_ll_curr_q_tg:,.02f}"
                                                            )
         else:
             strHTML = strHTML.strip() + str_total_tmpHTML.format(row.trns_name.strip(),
-                                                           f"{row.ll_curr_q_tg:,.0f}",
-                                                           f"{row.qtd_ac:,.0f}",
-                                                           f"{row.est_curr_totl:,.0f}",
-                                                           f"{row.qtd_est_totl:,.0f}",
-                                                           f"{row.qtd_est_diff_ll_curr_q_tg:,.0f}"
+                                                           f"{row.ll_curr_q_tg:,.02f}",
+                                                           f"{row.qtd_ac:,.02f}",
+                                                           f"{row.est_curr_totl:,.02f}",
+                                                           f"{row.qtd_est_totl:,.02f}",
+                                                           f"{row.qtd_est_diff_ll_curr_q_tg:,.02f}"
                                                            )
 
-    return readHTMLFile(2).format(strHTML)
+    return readHTMLFile(2).format(strHTML, getHeaderTable()[0])
 
 
 def generateHTMLbyProj():
     strSQL = """
-    SELECT seqn_no, project_name, curr_q_m1_ac_u, curr_q_m1_ac_vol, curr_q_m2_ac_u, curr_q_m2_ac_vol, curr_q_m3_ac_u,
-    curr_q_m3_ac_vol, qtd_curr_ac_u, qtd_curr_q_ac_vol
-    FROM dbo.crm_mail_est_reve_byproj
-    ORDER BY seqn_no
+    SELECT a.seqn_no, a.project_name, a.curr_q_m1_ac_u, a.curr_q_m1_ac_vol, a.curr_q_m2_ac_u,
+       a.curr_q_m2_ac_vol, a.curr_q_m3_ac_u, a.curr_q_m3_ac_vol, a.qtd_curr_ac_u, a.qtd_curr_q_ac_vol
+       FROM dbo.crm_mail_est_reve_byproj a WITH(NOLOCK), dbo.crm_mail_est_reve_conf t WITH(NOLOCK)
+       WHERE a.projectid = t.projectid
+       AND CAST(t.effc_date AS DATE) <= CAST(GETDATE() AS DATE)
+       AND (t.expr_date IS NULL OR CAST(t.expr_date AS DATE) >= CAST(GETDATE() AS DATE)) 
+       ORDER BY a.seqn_no
     """
 
     myConnDB = ConnectDB()
@@ -272,28 +292,33 @@ def generateHTMLbyProj():
     for row in result_set:
         if row.seqn_no != 6:
             strHTML = strHTML.strip() + str_tmpHTML.format(row.project_name.strip(),
-                                                           f"{row.curr_q_m1_ac_u:,.0f}",
-                                                           f"{row.curr_q_m1_ac_vol:,.0f}",
-                                                           f"{row.curr_q_m2_ac_u:,.0f}",
-                                                           f"{row.curr_q_m2_ac_vol:,.0f}",
-                                                           f"{row.curr_q_m3_ac_u:,.0f}",
-                                                           f"{row.curr_q_m3_ac_vol:,.0f}",
-                                                           f"{row.qtd_curr_ac_u:,.0f}",
-                                                           f"{row.qtd_curr_q_ac_vol:,.0f}"
+                                                           f"{row.curr_q_m1_ac_u:,.02f}",
+                                                           f"{row.curr_q_m1_ac_vol:,.02f}",
+                                                           f"{row.curr_q_m2_ac_u:,.02f}",
+                                                           f"{row.curr_q_m2_ac_vol:,.02f}",
+                                                           f"{row.curr_q_m3_ac_u:,.02f}",
+                                                           f"{row.curr_q_m3_ac_vol:,.02f}",
+                                                           f"{row.qtd_curr_ac_u:,.02f}",
+                                                           f"{row.qtd_curr_q_ac_vol:,.02f}"
                                                            )
         else:
             strHTML = strHTML.strip() + str_total_tmpHTML.format(row.project_name.strip(),
-                                                           f"{row.curr_q_m1_ac_u:,.0f}",
-                                                           f"{row.curr_q_m1_ac_vol:,.0f}",
-                                                           f"{row.curr_q_m2_ac_u:,.0f}",
-                                                           f"{row.curr_q_m2_ac_vol:,.0f}",
-                                                           f"{row.curr_q_m3_ac_u:,.0f}",
-                                                           f"{row.curr_q_m3_ac_vol:,.0f}",
-                                                           f"{row.qtd_curr_ac_u:,.0f}",
-                                                           f"{row.qtd_curr_q_ac_vol:,.0f}"
+                                                           f"{row.curr_q_m1_ac_u:,.02f}",
+                                                           f"{row.curr_q_m1_ac_vol:,.02f}",
+                                                           f"{row.curr_q_m2_ac_u:,.02f}",
+                                                           f"{row.curr_q_m2_ac_vol:,.02f}",
+                                                           f"{row.curr_q_m3_ac_u:,.02f}",
+                                                           f"{row.curr_q_m3_ac_vol:,.02f}",
+                                                           f"{row.qtd_curr_ac_u:,.02f}",
+                                                           f"{row.qtd_curr_q_ac_vol:,.02f}"
                                                            )
 
-    return readHTMLFile(3).format(strHTML)
+    return readHTMLFile(3).format(strHTML,
+                                  getHeaderTable()[0],
+                                  getHeaderTable()[6],
+                                  getHeaderTable()[7],
+                                  getHeaderTable()[8]
+                                  )
 
 
 def readHTMLFile(p_parm: int = None):
@@ -308,9 +333,29 @@ def readHTMLFile(p_parm: int = None):
     return f.read()
 
 
+def refreshDataLastUpdate():
+    strSQL = """
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '1', @p_option = '' 
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '2', @p_option = '' 
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '3', @p_option = 'AP' 
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '3', @p_option = 'JV' 
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '4', @p_option = 'AP' 
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '4', @p_option = 'JV' 
+    EXEC dbo.sp_proc_mail_est_reve_totl
+    EXEC dbo.sp_proc_mail_est_reve_byproj
+    """
+
+    myConnDB = ConnectDB()
+    myConnDB.exec_sp(strSQL, params=())
+
+
 def main():
-    receivers = ['suchat_s@apthai.com', 'pimonwan@apthai.com', 'pornnapa@apthai.com']
-    # receivers = ['suchat_s@apthai.com']
+    refreshDataLastUpdate()
+
+    # receivers = ['suchat_s@apthai.com', 'pimonwan@apthai.com', 'pornnapa@apthai.com',
+    #              'tanonchai@apthai.com', 'polwaritpakorn@apthai.com', 'jintana_i@apthai.com',
+    #              'apichaya@apthai.com']
+    receivers = ['suchat_s@apthai.com']
     subject = EST_MAIL_SUBJECT
     # bodyMsg = generateHTMLbyProj()
     # bodyMsg = EST_MAIL_BODY
