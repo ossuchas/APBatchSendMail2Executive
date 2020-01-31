@@ -253,7 +253,7 @@ def generateHTMLbyProj():
        FROM dbo.crm_mail_est_reve_byproj a WITH(NOLOCK), dbo.crm_mail_est_reve_conf t WITH(NOLOCK)
        WHERE a.projectid = t.projectid
        AND CAST(t.effc_date AS DATE) <= CAST(GETDATE() AS DATE)
-       AND (t.expr_date IS NULL OR CAST(t.expr_date AS DATE) >= CAST(GETDATE() AS DATE)) 
+       AND (t.expr_date IS NULL OR CAST(t.expr_date AS DATE) >= CAST(GETDATE() AS DATE))
        ORDER BY a.seqn_no
     """
 
@@ -335,12 +335,12 @@ def readHTMLFile(p_parm: int = None):
 
 def refreshDataLastUpdate():
     strSQL = """
-    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '1', @p_option = '' 
-    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '2', @p_option = '' 
-    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '3', @p_option = 'AP' 
-    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '3', @p_option = 'JV' 
-    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '4', @p_option = 'AP' 
-    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '4', @p_option = 'JV' 
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '1', @p_option = ''
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '2', @p_option = ''
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '3', @p_option = 'AP'
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '3', @p_option = 'JV'
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '4', @p_option = 'AP'
+    EXEC dbo.sp_proc_mail_est_reve_detl @p_type = '4', @p_option = 'JV'
     EXEC dbo.sp_proc_mail_est_reve_totl
     EXEC dbo.sp_proc_mail_est_reve_byproj
     """
@@ -350,12 +350,13 @@ def refreshDataLastUpdate():
 
 
 def main():
+    # Refresh Data
     refreshDataLastUpdate()
 
-    # receivers = ['suchat_s@apthai.com', 'pimonwan@apthai.com', 'pornnapa@apthai.com',
-    #              'tanonchai@apthai.com', 'polwaritpakorn@apthai.com', 'jintana_i@apthai.com',
-    #              'apichaya@apthai.com']
-    receivers = ['suchat_s@apthai.com']
+    receivers = ['suchat_s@apthai.com', 'pimonwan@apthai.com', 'pornnapa@apthai.com',
+                 'tanonchai@apthai.com', 'polwaritpakorn@apthai.com', 'jintana_i@apthai.com',
+                 'apichaya@apthai.com']
+    #receivers = ['suchat_s@apthai.com']
     subject = EST_MAIL_SUBJECT
     # bodyMsg = generateHTMLbyProj()
     # bodyMsg = EST_MAIL_BODY
