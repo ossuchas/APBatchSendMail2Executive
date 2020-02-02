@@ -174,10 +174,10 @@ def main():
     # receivers = ['suchat_s@apthai.com', 'apichaya@apthai.com', 'jintana_i@apthai.com', 'polwaritpakorn@apthai.com',
     #              'tanonchai@apthai.com', 'teerapat_s@apthai.com']
 
-    receivers = ['suchat_s@apthai.com', 'apichaya@apthai.com', 'jintana_i@apthai.com', 'polwaritpakorn@apthai.com',
-                 'tanonchai@apthai.com', 'teerapat_s@apthai.com', 'laddawan_v@apthai.com', 'woraphan_c@apthai.com',
-                 'raweewan_p@apthai.com', 'srisakul_p@apthai.com', 'jatuporn_p@apthai.com']
-    # receivers = ['suchat_s@apthai.com']
+    # receivers = ['suchat_s@apthai.com', 'apichaya@apthai.com', 'jintana_i@apthai.com', 'polwaritpakorn@apthai.com',
+    #              'tanonchai@apthai.com', 'teerapat_s@apthai.com', 'laddawan_v@apthai.com', 'woraphan_c@apthai.com',
+    #              'raweewan_p@apthai.com', 'srisakul_p@apthai.com', 'jatuporn_p@apthai.com']
+    receivers = ['suchat_s@apthai.com']
     subject = MAIL_SUBJECT
     # bodyMsg = MAIL_BODY
     bodyMsg = generateHTML()
@@ -217,7 +217,7 @@ def generateHTML():
     df9 = getDatafromTable(sub_no=9)
 
     total_week = returnVal[0]
-    if total_week == 5:
+    if total_week >= 4:
         return readhtml(1) \
                .format(getHeaderTable(0)[0], getHeaderTable(0)[1], getHeaderTable(0)[2],
                        getHeaderTable(0)[3], getHeaderTable(0)[4], getHeaderTable(0)[5],
