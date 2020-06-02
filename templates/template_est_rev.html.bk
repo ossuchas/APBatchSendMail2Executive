@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<table cellpadding="0" cellspacing="0" border="1" style="font-family:AP;font-size: 8.5pt;border: 1px solid black;border-collapse: collapse;">
+  <col width="166" />
+  <col width="61" span="3" />
+  <col width="70" />
+  <tr>
+    <td width="166" rowspan="2" align="center" bgcolor="#CCCCCC"><strong>Revenue</strong></td>
+    <td width="61" rowspan="2" align="center" bgcolor="#99CCFF"><strong>{0}</strong></td>
+    <td width="70" rowspan="2" align="center" bgcolor="#FF9966"><strong>QTD</strong></td>
+    <td colspan="5" align="center" bgcolor="#FFCCFF"><strong>Estimate Income</strong></td>
+    <td width="70" rowspan="2" align="center" bgcolor="#99CCFF"><strong>QTD + Est. {6}</strong></td>
+    <td width="70" rowspan="2" align="center" bgcolor="#FF9966"><strong>YTD</strong></td>
+  </tr>
+  <tr>
+    <td width="70" align="center" bgcolor="#FFCCFF"><strong>Est#1<br />
+      {1}</strong></td>
+    <td width="70" align="center" bgcolor="#FFCCFF"><strong>Est#2<br />
+{2}</strong></td>
+    <td width="70" align="center" bgcolor="#FFCCFF"><strong>Est#3<br />
+{3}</strong></td>
+    <td width="70" align="center" bgcolor="#FFCCFF"><strong>Est#4<br />
+{4}</strong></td>
+    <td width="70" align="center" bgcolor="#FFCCFF"><strong>Est#5<br />
+{5}</strong></td>
+  </tr>
+  {7}
+</table>
+</body>
+</html>

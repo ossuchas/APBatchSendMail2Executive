@@ -265,6 +265,8 @@ def generateHTMLbyProj():
     str_tmpHTML = """
     <tr>
         <td align="left">{0}</td>
+        <td align="right" >{9}&nbsp;</td>
+        <td align="right" >{10}&nbsp;</td>
         <td align="right" >{1}&nbsp;</td>
         <td align="right" >{2}&nbsp;</td>
         <td align="right">{3}&nbsp;</td>
@@ -273,12 +275,16 @@ def generateHTMLbyProj():
         <td align="right">{6}&nbsp;</td>
         <td align="right">{7}&nbsp;</td>
         <td align="right">{8}&nbsp;</td>
+        <td align="right">{11}&nbsp;</td>
+        <td align="right">{12}&nbsp;</td>
     </tr>
     """
 
     str_total_tmpHTML = """
     <tr>
         <td align="right" bgcolor="#FFFFCC"><strong>{0}</strong></td>
+        <td align="right" bgcolor="#FFFFCC"><strong>{9}&nbsp;</strong></td>
+        <td align="right" bgcolor="#FFFFCC"><strong>{10}&nbsp;</strong></td>
         <td align="right" bgcolor="#FFFFCC"><strong>{1}&nbsp;</strong></td>
         <td align="right" bgcolor="#FFFFCC"><strong>{2}&nbsp;</strong></td>
         <td align="right" bgcolor="#FFFFCC"><strong>{3}&nbsp;</strong></td>
@@ -287,6 +293,8 @@ def generateHTMLbyProj():
         <td align="right" bgcolor="#FFFFCC"><strong>{6}&nbsp;</strong></td>
         <td align="right" bgcolor="#FFFFCC"><strong>{7}&nbsp;</strong></td>
         <td align="right" bgcolor="#FFFFCC"><strong>{8}&nbsp;</strong></td>
+        <td align="right" bgcolor="#FFFFCC"><strong>{11}&nbsp;</strong></td>
+        <td align="right" bgcolor="#FFFFCC"><strong>{12}&nbsp;</strong></td>
     </tr>
     """
 
@@ -300,7 +308,11 @@ def generateHTMLbyProj():
                                                            f"{row.curr_q_m3_ac_u:,.02f}",
                                                            f"{row.curr_q_m3_ac_vol:,.02f}",
                                                            f"{row.qtd_curr_ac_u:,.02f}",
-                                                           f"{row.qtd_curr_q_ac_vol:,.02f}"
+                                                           f"{row.qtd_curr_q_ac_vol:,.02f}",
+                                                           f"{row.curr_q1_ac_u:,.02f}",
+                                                           f"{row.curr_q1_ac_vol:,.02f}",
+                                                           f"{row.ytd_ac_u:,.02f}",
+                                                           f"{row.ytd_ac_vol:,.02f}"
                                                            )
         else:
             strHTML = strHTML.strip() + str_total_tmpHTML.format(row.project_name.strip(),
@@ -311,7 +323,11 @@ def generateHTMLbyProj():
                                                            f"{row.curr_q_m3_ac_u:,.02f}",
                                                            f"{row.curr_q_m3_ac_vol:,.02f}",
                                                            f"{row.qtd_curr_ac_u:,.02f}",
-                                                           f"{row.qtd_curr_q_ac_vol:,.02f}"
+                                                           f"{row.qtd_curr_q_ac_vol:,.02f}",
+                                                           f"{row.curr_q1_ac_u:,.02f}",
+                                                           f"{row.curr_q1_ac_vol:,.02f}",
+                                                           f"{row.ytd_ac_u:,.02f}",
+                                                           f"{row.ytd_ac_vol:,.02f}"
                                                            )
 
     return readHTMLFile(3).format(strHTML,
@@ -352,7 +368,7 @@ def refreshDataLastUpdate():
 
 def main():
     # Refresh Data
-    refreshDataLastUpdate()
+    # refreshDataLastUpdate()
 
     # receivers = ['suchat_s@apthai.com', 'pimonwan@apthai.com', 'pornnapa@apthai.com',
     #              'tanonchai@apthai.com', 'polwaritpakorn@apthai.com', 'jintana_i@apthai.com',

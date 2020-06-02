@@ -12,9 +12,7 @@
   <col width="70" />
   <tr>
     <td width="166" rowspan="3" align="center" bgcolor="#CCCCCC"><strong>Actual</strong></td>
-    <td colspan="2" rowspan="2" align="center" bgcolor="#FF9966"><strong>Q1</strong></td>
     <td colspan="8" align="center" bgcolor="#99CCFF"><strong>{1}</strong></td>
-    <td colspan="2" rowspan="2" align="center" bgcolor="#FF9966"><strong>YTD</strong></td>
   </tr>
   <tr>
     <td colspan="2" align="center" bgcolor="#99CCFF"><strong>{2}</strong></td>
@@ -23,8 +21,6 @@
     <td colspan="2" align="center" bgcolor="#99CCFF"><strong>QTD</strong></td>
   </tr>
   <tr>
-    <td width="61" align="center" bgcolor="#FF9966"><strong>Unit</strong></td>
-    <td width="61" align="center" bgcolor="#FF9966"><strong>Vol.(MB)</strong></td>
     <td width="61" align="center" bgcolor="#99CCFF"><strong>Unit</strong></td>
     <td width="61" align="center" bgcolor="#99CCFF"><strong>Vol.(MB)</strong></td>
     <td width="61" align="center" bgcolor="#99CCFF"><strong>Unit</strong></td>
@@ -33,8 +29,6 @@
     <td width="61" align="center" bgcolor="#99CCFF"><strong>Vol.(MB)</strong></td>
     <td width="70" align="center" bgcolor="#99CCFF"><strong>Unit</strong></td>
     <td width="70" align="center" bgcolor="#99CCFF"><strong>Vol.(MB)</strong></td>
-    <td width="70" align="center" bgcolor="#FF9966"><strong>Unit</strong></td>
-    <td width="70" align="center" bgcolor="#FF9966"><strong>Vol.(MB)</strong></td>
   </tr>
   {0}
 </table>
