@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 import pyodbc
 import pandas as pd
 from sqlalchemy import create_engine
-from config import MAIL_SENDER, MAIL_BODY, MAIL_SUBJECT
+from config import MAIL_SENDER, MAIL_BODY, MAIL_SUBJECT, MAIL_TO, MAIL_CC
 import codecs
 
 
@@ -60,7 +60,7 @@ class ConnectDB:
         self._cursor.close()
 
 
-def send_email(subject, message, from_email, to_email=None, attachment=None):
+def send_email(subject, message, from_email, to_email=None, cc_email=None, attachment=None):
     """
     :param subject: email subject
     :param message: Body content of the email (string), can be HTML/CSS or plain text
@@ -76,6 +76,9 @@ def send_email(subject, message, from_email, to_email=None, attachment=None):
     msg['Subject'] = subject
     msg['From'] = from_email
     msg['To'] = ", ".join(to_email)
+    msg['Cc'] = ", ".join(cc_email)
+
+    to_email.extend(cc_email)
     msg.attach(MIMEText(message, 'html'))
 
     for f in attachment:
@@ -177,7 +180,15 @@ def main():
     #receivers = ['suchat_s@apthai.com', 'apichaya@apthai.com', 'jintana_i@apthai.com', 'polwaritpakorn@apthai.com',
     #             'tanonchai@apthai.com', 'teerapat_s@apthai.com', 'laddawan_v@apthai.com', 'woraphan_c@apthai.com',
     #             'raweewan_p@apthai.com', 'srisakul_p@apthai.com', 'jatuporn_p@apthai.com']
+<<<<<<< HEAD
     receivers = ['suchat_s@apthai.com']
+=======
+    # receivers = ['suchat_s@apthai.com', 'apichaya@apthai.com']
+    #receivers = ["apichaya@apthai.com", "polwaritpakorn@apthai.com"]
+    #cc_receivers = ["suchat_s@apthai.com"]
+    receivers = MAIL_TO
+    cc_receivers = MAIL_CC
+>>>>>>> 240b8fb81bea5d0e7d50f98602c5528de0cd51cb
     subject = MAIL_SUBJECT
     # bodyMsg = MAIL_BODY
     bodyMsg = generateHTML()
@@ -186,7 +197,7 @@ def main():
     attachedFile = []
 
     # Send Email to Customer
-    send_email(subject, bodyMsg, sender, receivers, attachedFile)
+    send_email(subject, bodyMsg, sender, receivers, cc_receivers, attachedFile)
 
 
 def generateHTML():
