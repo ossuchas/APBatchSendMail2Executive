@@ -4,8 +4,8 @@ from datetime import datetime
 MAIL_TO=["anuphong@apthai.com","pichet@apthai.com","vittakarn@apthai.com","visanu@apthai.com","pamorn@apthai.com","kamolthip@apthai.com","prajark@apthai.com","worrapong@apthai.com","wason@apthai.com","opas@apthai.com","ratchayud@apthai.com","tippawan_s@apthai.com","somchai_w@apthai.com","Risk Management Riskmanagement@apthai.com"]
 MAIL_CC=["kultipa_t@apthai.com","plotch@apthai.com","bhunnapa@apthai.com","napaporn_ja@apthai.com","woraphan_c@apthai.com","laddawan_v@apthai.com","raweewan_p@apthai.com","srisakul_p@apthai.com","thirata_t@apthai.com","wipawan_k@apthai.com","panwarin_j@apthai.com","jatuporn_p@apthai.com","suchat_s@apthai.com","jintana_i@apthai.com","apichaya@apthai.com","tanonchai@apthai.com"]
 # Dev
-#MAIL_TO=["apichaya@apthai.com", "polwaritpakorn@apthai.com"]
-#MAIL_CC=["suchat_s@apthai.com", "jintana_i@apthai.com"]
+#MAIL_TO=["apichaya@apthai.com", "suchat_s@apthai.com", "jintana_i@apthai.com","tanonchai@apthai.com","polwaritpakorn@apthai.com"]
+#MAIL_CC=["suchat_s@apthai.com"]
 MAIL_SENDER = "crmconsult@apthai.com"
 MAIL_SUBJECT = f"Weekly Summary Lead Lag at [{datetime.now().strftime('%d/%m/%Y')}]"
 MAIL_BODY = """
