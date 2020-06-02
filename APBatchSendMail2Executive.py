@@ -180,15 +180,12 @@ def main():
     #receivers = ['suchat_s@apthai.com', 'apichaya@apthai.com', 'jintana_i@apthai.com', 'polwaritpakorn@apthai.com',
     #             'tanonchai@apthai.com', 'teerapat_s@apthai.com', 'laddawan_v@apthai.com', 'woraphan_c@apthai.com',
     #             'raweewan_p@apthai.com', 'srisakul_p@apthai.com', 'jatuporn_p@apthai.com']
-<<<<<<< HEAD
     receivers = ['suchat_s@apthai.com']
-=======
     # receivers = ['suchat_s@apthai.com', 'apichaya@apthai.com']
     #receivers = ["apichaya@apthai.com", "polwaritpakorn@apthai.com"]
     #cc_receivers = ["suchat_s@apthai.com"]
-    receivers = MAIL_TO
+    # receivers = MAIL_TO
     cc_receivers = MAIL_CC
->>>>>>> 240b8fb81bea5d0e7d50f98602c5528de0cd51cb
     subject = MAIL_SUBJECT
     # bodyMsg = MAIL_BODY
     bodyMsg = generateHTML()
