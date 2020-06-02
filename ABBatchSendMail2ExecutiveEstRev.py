@@ -249,7 +249,8 @@ def generateHTMLTotal():
 def generateHTMLbyProj():
     strSQL = """
     SELECT a.seqn_no, a.project_name, a.curr_q_m1_ac_u, a.curr_q_m1_ac_vol, a.curr_q_m2_ac_u,
-       a.curr_q_m2_ac_vol, a.curr_q_m3_ac_u, a.curr_q_m3_ac_vol, a.qtd_curr_ac_u, a.qtd_curr_q_ac_vol
+       a.curr_q_m2_ac_vol, a.curr_q_m3_ac_u, a.curr_q_m3_ac_vol, a.qtd_curr_ac_u, a.qtd_curr_q_ac_vol,
+       a.curr_q1_ac_u, a.curr_q1_ac_vol, a.ytd_ac_u, a.ytd_ac_vol
        FROM dbo.crm_mail_est_reve_byproj a WITH(NOLOCK), dbo.crm_mail_est_reve_conf t WITH(NOLOCK)
        WHERE a.projectid = t.projectid
        AND CAST(t.effc_date AS DATE) <= CAST(GETDATE() AS DATE)
@@ -353,10 +354,10 @@ def main():
     # Refresh Data
     refreshDataLastUpdate()
 
-    receivers = ['suchat_s@apthai.com', 'pimonwan@apthai.com', 'pornnapa@apthai.com',
-                 'tanonchai@apthai.com', 'polwaritpakorn@apthai.com', 'jintana_i@apthai.com',
-                 'apichaya@apthai.com']
-    # receivers = ['suchat_s@apthai.com']
+    # receivers = ['suchat_s@apthai.com', 'pimonwan@apthai.com', 'pornnapa@apthai.com',
+    #              'tanonchai@apthai.com', 'polwaritpakorn@apthai.com', 'jintana_i@apthai.com',
+    #              'apichaya@apthai.com']
+    receivers = ['suchat_s@apthai.com']
     subject = EST_MAIL_SUBJECT
     # bodyMsg = generateHTMLbyProj()
     # bodyMsg = EST_MAIL_BODY
