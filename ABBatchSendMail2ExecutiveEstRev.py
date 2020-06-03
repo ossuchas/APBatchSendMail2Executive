@@ -116,7 +116,7 @@ def getHeaderTable():
 
 def generateHTMLDetl():
     strSQL = """
-    SELECT seqn_no, trns_name, ac_q1, qtd_curr_ac, est_curr_d1, est_curr_d2, est_curr_d3,
+    SELECT seqn_no, trns_name, ac_q1, ac_q2, qtd_curr_ac, est_curr_d1, est_curr_d2, est_curr_d3,
     est_curr_d4, est_curr_d5, qtd_est_total, ytd_est_ac
     FROM dbo.crm_mail_est_reve
     ORDER BY seqn_no
@@ -129,6 +129,7 @@ def generateHTMLDetl():
     str_tmpHTML = """
     <tr>
         <td align="left">{0}</td>
+        <td align="right">{10}&nbsp;</td>
         <td align="right">{1}&nbsp;</td>
         <td align="right">{2}&nbsp;</td>
         <td align="right">{3}&nbsp;</td>
@@ -144,6 +145,7 @@ def generateHTMLDetl():
     str_total_tmpHTML = """
     <tr>
         <td align="right" bgcolor="#FFFFCC"><strong>{0}</strong></td>
+        <td align="right" bgcolor="#FFFFCC"><strong>{10}&nbsp;</strong></td>
         <td align="right" bgcolor="#FFFFCC"><strong>{1}&nbsp;</strong></td>
         <td align="right" bgcolor="#FFFFCC"><strong>{2}&nbsp;</strong></td>
         <td align="right" bgcolor="#FFFFCC"><strong>{3}&nbsp;</strong></td>
@@ -159,7 +161,7 @@ def generateHTMLDetl():
     for row in result_set:
         if row.seqn_no != 3:
             strHTML = strHTML.strip() + str_tmpHTML.format(row.trns_name.strip(),
-                                                           f"{row.ac_q1:,.02f}",
+                                                           f"{row.ac_q2:,.02f}",
                                                            f"{row.qtd_curr_ac:,.02f}",
                                                            f"{row.est_curr_d1:,.02f}",
                                                            f"{row.est_curr_d2:,.02f}",
@@ -167,11 +169,12 @@ def generateHTMLDetl():
                                                            f"{row.est_curr_d4:,.02f}",
                                                            f"{row.est_curr_d5:,.02f}",
                                                            f"{row.qtd_est_total:,.02f}",
-                                                           f"{row.ytd_est_ac:,.02f}"
+                                                           f"{row.ytd_est_ac:,.02f}",
+                                                           f"{row.ac_q1:,.02f}",
                                                            )
         else:
             strHTML = strHTML.strip() + str_total_tmpHTML.format(row.trns_name.strip(),
-                                                                 f"{row.ac_q1:,.02f}",
+                                                                 f"{row.ac_q2:,.02f}",
                                                                  f"{row.qtd_curr_ac:,.02f}",
                                                                  f"{row.est_curr_d1:,.02f}",
                                                                  f"{row.est_curr_d2:,.02f}",
@@ -179,7 +182,8 @@ def generateHTMLDetl():
                                                                  f"{row.est_curr_d4:,.02f}",
                                                                  f"{row.est_curr_d5:,.02f}",
                                                                  f"{row.qtd_est_total:,.02f}",
-                                                                 f"{row.ytd_est_ac:,.02f}"
+                                                                 f"{row.ytd_est_ac:,.02f}",
+                                                                 f"{row.ac_q1:,.02f}",
                                                                  )
 
     return readHTMLFile(1).format(getHeaderTable()[0],
@@ -368,12 +372,12 @@ def refreshDataLastUpdate():
 
 def main():
     # Refresh Data
-    # refreshDataLastUpdate()
+    refreshDataLastUpdate()
 
-    # receivers = ['suchat_s@apthai.com', 'pimonwan@apthai.com', 'pornnapa@apthai.com',
-    #              'tanonchai@apthai.com', 'polwaritpakorn@apthai.com', 'jintana_i@apthai.com',
-    #              'apichaya@apthai.com']
-    receivers = ['suchat_s@apthai.com']
+    receivers = ['suchat_s@apthai.com', 'pimonwan@apthai.com', 'pornnapa@apthai.com',
+                 'tanonchai@apthai.com', 'polwaritpakorn@apthai.com', 'jintana_i@apthai.com',
+                 'apichaya@apthai.com']
+    # receivers = ['suchat_s@apthai.com']
     subject = EST_MAIL_SUBJECT
     # bodyMsg = generateHTMLbyProj()
     # bodyMsg = EST_MAIL_BODY
